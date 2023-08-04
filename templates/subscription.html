@@ -1,0 +1,175 @@
+{% extends 'base.html' %}
+{% block body %}
+
+        <!-- partial -->
+        <div class="main-panel">
+          <div class="content-wrapper">
+            <div class="page-header">
+              <h3 class="page-title">Subscription</h3>
+              <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                  <li class="breadcrumb-item"><a href="/login_admin_user">Dashboard</a></li>
+                  <li class="breadcrumb-item active" aria-current="page"> Subscription</li>
+
+                </ol>
+              </nav>
+            </div>
+            <div class="row">
+              <div class="col-lg-12 grid-margin stretch-card">
+                <div class="card">
+                  {% for message in messages %}
+                  <div class="alert {{message.tags}} alert-dismissible fade show" role="alert">
+                    <strong>Message!</strong> {{message}}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  {% endfor %}
+                  <div class="card-body">
+                    <div class="row">
+                      <div class="col-lg-8 grid-margin stretch-card text-right">
+                        <button type="button" class="btn btn-success" id="button">Export</button>
+                      </div>
+                      <div class="col-lg-4 grid-margin stretch-card2 text-right"><a href="admin_add_subscription_page" class="btn btn-primary mr-2">Add Subscription</a></div>
+                    </div>
+
+                    <div>
+                      <table id="example" class="table table-bordered display nowrap" style="width:100%">
+                        <thead>
+                          <tr>
+                            <th>Title of subscription</th>
+                            <th>Plan Type</th>
+                            <th>Plan details</th>
+                            <th>Time Duration</th>
+                            <th>Amount of subscription</th>
+                            
+                            <th>Action</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                        {% for data in show_subscription_data %}
+                          <tr>
+                            <td>{{data.subscription_title}}</td>
+                            <td>{{data.plans_type}}</td>
+                            <td>{{data.subscription_description}}</td>
+                            <td>{{data.subscription_duration}}days</td>
+                            <td>${{data.subscription_amount}}</td>
+                           
+<!--                            <td>-->
+<!--                              <a href="#" class="btn btn-success btn-sm"><i class="mdi mdi-eye"></i></a>-->
+<!--&lt;!&ndash;                              <a href="#" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#delete"><i class="mdi mdi-delete"></i></a>&ndash;&gt;-->
+<!--                            </td>-->
+                            <td>
+                              <a title="DELETE" href="#" class="btn btn-danger btn-sm delete_subscription_data" data-toggle="modal" data-target="#delete"
+                              data-id="{{data.account_id}}"><i class="mdi mdi-delete"></i></a>
+                              <a title="Edit_Subscription" href="{% url 'admin_edit_subscription_page' data.account_id %}" class="btn btn-success btn-sm edit_subscription_data" data-id="{{data.account_id}}"><i class="mdi mdi-table-edit"></i></a>
+                            </td>
+                          </tr>
+                          {% endfor %}
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              
+            </div>
+          </div>
+          <!-- content-wrapper ends -->
+          <!-- partial:../../partials/_footer.html -->
+          <footer class="footer">
+            <div class="d-sm-flex justify-content-center justify-content-sm-between">
+              <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright © Next door Rental 2022</span>
+            </div>
+          </footer>
+          <!-- partial -->
+        </div>
+        <!-- main-panel ends -->
+      </div>
+      <!-- page-body-wrapper ends -->
+    </div>
+    <!-- container-scroller -->
+    <!-- Modal -->
+  <div class="modal fade" id="delete" role="dialog">
+    <div class="modal-dialog modal-sm">
+    
+      <!-- Modal content-->
+      <form action="admin_delete_subscription_data" method="post" >
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Delete</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          
+        </div>
+        <div class="modal-body">
+          <p>Are you sure you want to Delete?</p>
+          <input type="hidden" name="id_for_subscription" class="form-control remove_description_id" id="accomplishment_id"/>
+        </div>
+        <div class="modal-footer">
+
+          <button type="button" class="btn btn-light" data-dismiss="modal">NO</button>
+          <button type="button" onclick="delete_data_career_accomplishment()" class="btn btn-primary mr-2" data-dismiss="modal">YES</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+     <!-- Modal -->
+  <div class="modal fade" id="logout" role="dialog">
+    <div class="modal-dialog modal-sm">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Logout</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          
+        </div>
+        <div class="modal-body">
+          <p>Are you sure you want to logout?</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-light" data-dismiss="modal">NO</button>
+          <a href="/admin_logout" class="btn btn-primary mr-2"> YES</a>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  {% block js %}
+
+  <script>
+  
+  $(document).ready(function () {
+    $('#example').DataTable({
+        scrollY: 200,
+        scrollX: true,
+    });
+  });
+  
+  </script>
+
+  
+  <script>
+    $(document).on("click",".delete_subscription_data",function() {
+      let { id } = $(this).data();
+      console.log(id)
+      $('.remove_description_id').val(id);
+  });
+
+function delete_data_career_accomplishment(){
+
+  var inputVal = document.getElementById("accomplishment_id").value;
+  console.log(inputVal);
+<!--var a = "http://54.89.50.153:7070/admin_delete_subscription_data/";-->
+  var a = "http://54.89.50.153:7070/admin_delete_subscription_data/";
+  var c = a + inputVal;
+  console.log(c);
+  window.location.href = c;
+
+}
+  </script>
+  {% endblock  %}
+
+{% endblock  %}

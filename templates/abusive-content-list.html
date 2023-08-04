@@ -1,0 +1,137 @@
+{% extends 'base.html' %}
+{% block body %}
+ <!-- partial -->
+ <div class="main-panel">
+  <div class="content-wrapper">
+    <div class="page-header">
+      <h3 class="page-title">Abusive Content</h3>
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="/login_admin_user">Dashboard</a></li>
+          <li class="breadcrumb-item active" aria-current="page">Abusive Content</li>
+        </ol>
+      </nav>
+    </div>
+    <div class="row">
+      <div class="col-lg-12 grid-margin stretch-card">
+        <div class="card">
+          {% for message in messages %}
+          <div class="alert {{ message.tags }} alert-dismissible fade show" role="alert">
+            <strong></strong> {{message}}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          {% endfor %}
+          <div class="card-body">
+            <div class="row">
+              <div class="col-lg-8 grid-margin stretch-card text-right">
+                <button type="button" class="btn btn-success" id="button">Export</button>
+              </div>
+            </div>
+            <div class="">
+              <table id="example" class="table table-bordered display nowrap example" style="width:100%; height: 100%;">
+                <thead>
+                  <tr>
+                    <th>Sno</th>
+                    <th>Files</th>
+                    <th>DateTime</th>
+                    <th>User</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                {% for data in abusive_list %}
+                  <tr>
+                    <td>{{data.id}}</td>
+                    <td>{{ data.files }}</td>
+                    <td>{{ data.date_time|date:"Y-m-d" }} {{ data.date_time|time:"H:i:s" }}</td>
+                    <td>{{ data.user }}</td>
+
+                    <td>
+                      <a href="{% url 'download_file_chat' data.id %}" class="btn btn-success btn-sm"><i class="mdi mdi-download"></i></a>
+                    </td>
+                  </tr>
+                {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      
+    </div>
+  </div>
+  <!-- content-wrapper ends -->
+  <!-- partial:../../partials/_footer.html -->
+  <footer class="footer">
+    <div class="d-sm-flex justify-content-center justify-content-sm-between">
+      <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright © Next door Rental 2022</span>
+    </div>
+  </footer>
+  <!-- partial -->
+</div>
+<!-- main-panel ends -->
+</div>
+<!-- page-body-wrapper ends -->
+</div>
+<!-- container-scroller -->
+
+<div class="modal fade" id="logout" role="dialog">
+<div class="modal-dialog modal-sm">
+
+<!-- Modal content-->
+<div class="modal-content">
+<div class="modal-header">
+  <h4 class="modal-title">Logout</h4>
+  <button type="button" class="close" data-dismiss="modal">&times;</button>
+  
+</div>
+<div class="modal-body">
+  <p>Are you sure you want to logout?</p>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-light" data-dismiss="modal">NO</button>
+  <a href="/admin_logout" class="btn btn-primary mr-2"> YES</a>
+</div>
+</div>
+
+</div>
+</div>
+{% block js %}
+<script>
+  // Delete Product category
+  $(document).on("click",".delete_tcs_data",function() {
+    console.log("Working")
+      let { id } = $(this).data();
+      console.log(id)
+      $('.remove_description_id').val(id);
+
+  });
+  $(document).ready(function () {
+    $('#example').DataTable({
+        scrollY: true,
+        scrollX: true,
+        dom: 'Bfrtip',
+        buttons: [
+        'excelHtml5',
+        ],
+    });
+
+  });
+
+function delete_category_data(){
+  var inputVal = document.getElementById("list_id").value;
+  console.log("Yes Button hit")
+  console.log(inputVal);
+  var a = "/delete_tcs/";
+  var c = a + inputVal;
+  console.log(c);
+  window.location.href = c;
+
+}
+</script>
+
+{% endblock  %}
+{% endblock  %}

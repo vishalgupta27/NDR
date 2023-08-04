@@ -1,0 +1,129 @@
+{% extends 'base.html' %}
+{% block body %}
+<!-- partial -->
+<div class="main-panel">
+    <div class="content-wrapper">
+        <div class="page-header">
+            <h3 class="page-title">Our Taxes</h3>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/login_admin_user">Dashboard</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Our Taxes</li>
+                </ol>
+            </nav>
+        </div>
+        <div class="row">
+            <div class="col-6 grid-margin mx-auto">
+                <div class="card shadow">
+                    <div class="card-body">
+                        <h2 class="card-title mx-auto">Our Taxes</h2>
+                        <form method="post" action="">
+                            {% csrf_token %}
+                            <div>
+                                <div class="mb-3">
+                                    <label class="form-label">Tax Rate</label>
+                                    <div class="input-group">
+                                        <input type="number" name="tax_rate" maxlength="2" class="form-control ndr_tax"  step="any"
+                                            placeholder="Tax Rate" aria-describedby="inputGroupPrepend2" required>
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="inputGroupPrepend2">%</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">NDR Charge</label>
+                                    <div class="input-group">
+                                        <input type="number" name="ndr_charge" class="form-control ndr_tax"  step="any"
+                                            placeholder="NDR Charge" maxlength="2" aria-describedby="inputGroupPrepend2" required>
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="inputGroupPrepend2">%</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">NDR Credit Card Charge</label>
+                                    <div class="input-group">
+                                        <input type="number" name="ndr_credit_card_charge" class="form-control ndr_tax"  step="any"
+                                            placeholder="NDR Credit Card Charge" maxlength="2" aria-describedby="inputGroupPrepend2" required>
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="inputGroupPrepend2">%</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Renter Credit Card Charge</label>
+                                    <div class="input-group">
+                                        <input type="number" name="renter_credit_card_charge" class="form-control ndr_tax"  step="any"
+                                            placeholder="Renter Credit Card Charge" maxlength="2" aria-describedby="inputGroupPrepend2" required>
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="inputGroupPrepend2">%</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Point Earned Rate</label>
+                                    <div class="input-group">
+                                        <input type="number" name="points_earned_rate" class="form-control ndr_tax"  step="any"
+                                            placeholder="Point Earned Rate" maxlength="2" aria-describedby="inputGroupPrepend2" required>
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="inputGroupPrepend2">%</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="btn-submit mx-auto">
+                                <button type="submit" class="btn btn-primary mr-2">Submit </button>
+                                <a href="/ndr_taxes_list" class="btn btn-light">Cancel</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+    <!-- content-wrapper ends -->
+    <footer class="footer">
+        <div class="d-sm-flex justify-content-center justify-content-sm-between">
+            <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright © Next door Rental
+                2022</span>
+        </div>
+    </footer>
+    <!-- partial -->
+</div>
+<!-- main-panel ends -->
+</div>
+<!-- page-body-wrapper ends -->
+</div>
+<!-- container-scroller -->
+
+<!-- Modal -->
+{% include 'notification-pop-up.html' %}
+{% block js %}
+<script>
+    var inputQuantity = [];
+    $(function() {     
+      $(".ndr_tax").on("keyup", function (e) {
+        var $field = $(this),
+            val=this.value,
+            $thisIndex=parseInt($field.data("idx"),10); 
+        if (this.validity && this.validity.badInput || isNaN(val) || $field.is(":invalid") ) {
+            this.value = inputQuantity[$thisIndex];
+            return;
+        } 
+        if (val.length > Number($field.attr("maxlength"))) {
+          val=val.slice(0, 2);
+          $field.val(val);
+        }
+        inputQuantity[$thisIndex]=val;
+      });      
+    });
+
+</script>
+{% endblock  %}
+
+<!-- End custom js for this page -->
+
+{% endblock %}

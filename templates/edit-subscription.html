@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+<!-- partial -->
+<div class="main-panel">
+    <div class="content-wrapper">
+      <div class="page-header">
+        <h3 class="page-title">Update Subscription</h3>
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/login_admin_user">Dashboard</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Update Subscription</li>
+          </ol>
+        </nav>
+      </div>
+      <div class="row">
+        <div class="col-sm-6 col-xl-6 offset-xl-3 grid-margin">
+          <div class="card">
+            <div class="card-body">
+              <h4 class="card-title">Update Subscription</h4>
+              <form action="{% url 'admin_update_subscription_page' %}" method="post" class="form-sample">
+                {% csrf_token %}
+                <input type="hidden" name="id" value="{{subs_data.id}}">
+                <div class="form-group">
+                    <label class="col-form-label">Title</label>
+                    <input name="title" type="text" class="form-control" value="{{subs_data.subscription_title}}" required/>
+                </div>
+                <div class="form-group">
+                    <label class="col-form-label">Description </label>
+                    <input name="description" class="form-control" rows="5" value="{{subs_data.subscription_description}}" required/>
+                </div>
+                <div class="form-group">
+                    <label class="col-form-label">Duration</label>
+                    <select name="duration" class="form-select form-control" aria-label="Default select example"required>
+                      {% if subs_data.subscription_duration == 1 %}
+                        <option value="1">Daily</option>
+                        <option value="7">Weekly</option>
+                        <option value="30">Monthly </option>
+                        <option value="365">Yearly</option>
+                        {% elif subs_data.subscription_duration == 7 %}
+                        <option value="7">Weekly</option>
+                        <option value="1">Daily</option>
+                        <option value="30">Monthly </option>
+                        <option value="365">Yearly</option>
+                        {% elif subs_data.subscription_duration == 30 %}
+                        <option value="30">Monthly </option>
+                        <option value="1">Daily</option>
+                        <option value="7">Weekly</option>
+                        <option value="365">Yearly</option>
+                        {% elif subs_data.subscription_duration == 365 %}
+                        <option value="365">Yearly</option>
+                        <option value="1">Daily</option>
+                        <option value="7">Weekly</option>
+                        <option value="30">Monthly </option>
+                      {% endif %}
+                      </select>
+                </div>
+                <div class="form-group">
+                    <label class="col-form-label">Amount</label>
+                    <div class="input-group mb-3">
+                    <input name="amount" type="number" class="form-control allowNumericWithoutDecimal" aria-label="Recipient's username" aria-describedby="basic-addon2" value="{{subs_data.subscription_amount}}" required/>
+                    <div class="input-group-append">
+                      <span class="input-group-text" id="basic-addon2">In dollars</span>
+                    </div>
+                  </div>
+                </div>
+              <button type="submit" class="btn btn-primary mr-2"> Update </button>
+              <a href="/admin_subscription_page" type="button" class="btn btn-light ">Cancel</a>
+<!--                      <button type="button"  class="btn btn-success btn-sm show_profile_user">Cancel</button>-->
+                </form>
+            </div>
+          </div>
+        </div>
+       
+      </div>
+    </div>
+    <!-- content-wrapper ends -->
+    <footer class="footer">
+      <div class="d-sm-flex justify-content-center justify-content-sm-between">
+        <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright © Next door Rental 2022</span>
+      </div>
+    </footer>
+    <!-- partial -->
+
+{% endblock  %}

@@ -1,0 +1,137 @@
+{% extends 'base.html' %}
+{% block body %}
+<!-- partial -->
+<div class="main-panel">
+    <div class="content-wrapper">
+      <div class="page-header">
+        <h3 class="page-title">User Details</h3>
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="login_admin_user">Dashboard</a></li>
+            <li class="breadcrumb-item active" aria-current="page">User Details</li>
+          </ol>
+        </nav>
+      </div>
+      <div class="row">
+        <div class="col-sm-6 col-xl-6 offset-xl-3 grid-margin">
+          <div class="card">
+            <div class="card-body">
+              <h4 class="card-title">User Details</h4>
+              <form action="" method="post" class="form-sample">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label class="col-form-label">First Name</label>
+                            <input name="Name_First" type="text" class="form-control" value="{{user.Name_First}}" required/>
+                        </div>
+                    </div>
+                    <div class="col-6">
+
+                        <div class="form-group">
+                            <label class="col-form-label">Last Name</label>
+                            <input name="Name_Last" type="text" class="form-control" value="{{user.Name_Last}}" required/>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label class="col-form-label">Email Address</label>
+                            <input type="text" name="email" class="form-control" readonly value="{{user.email}}" required/>
+                        </div>
+                    </div>
+                    <div class="col-6">
+
+                        <div class="form-group">
+                            <label class="col-form-label">Phone Number</label>
+                            <input type="text" name="phone_number" class="form-control" readonly value="{{user.phone_number}}" required/>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label class="col-form-label">Country of Birth</label>
+                            <input name="CountryOfBirth" type="text" class="form-control" value="{{user.CountryOfBirth}}" required/>
+                        </div>
+                    </div>
+                    <div class="col-6">
+
+                        <div class="form-group">
+                            <label class="col-form-label">Country</label>
+                            <input name="country" type="text" class="form-control" value="{{user.country}}" required/>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-form-label">Citizenship</label>
+                    <input name="Citizenship" type="text" class="form-control" value="{{user.Citizenship}}" required/>
+                </div>
+                <div class="form-group">
+                    <label class="col-form-label">Photo ID Number</label>
+                    <input name="PhotoID_Number" type="text" class="form-control" value="{{user.PhotoID_Number}}" required/>
+                </div>
+                <div class="form-group">
+                    <label class="col-form-label">Verification Date</label>
+                    <input name="VerificationDate" type="text" class="form-control" value="{{user.VerificationDate}}" required/>
+                </div>
+                <div class="form-group">
+                    <label class="col-form-label">Verification Personal ID</label>
+                    <input name="VerificationPersonalID" type="text" class="form-control" value="{{user.VerificationPersonalID}}" required/>
+                </div>
+                <div class="form-group">
+                    <label class="col-form-label">Credit Card Type</label>
+                    <input name="CreditCard_Type" type="text" class="form-control" value="{{user.CreditCard_Type}}" required/>
+                </div>
+                <div class="form-group">
+                  <label class="col-form-label">Location</label>
+                  <input name="CreditCard_Type" type="text" class="form-control" value="{{location.Address_Number}}, {{location.Address_Street1}}, {{location.Address_City}}, {{location.Address_Province}}, {{location.Address_Postal}},  {{location.Address_Country}}" readonly/>
+                </div>
+              <button type="submit" class="btn btn-primary mr-2"> Update </button>
+              <button type="button" class="btn btn-light " onclick="window.location.href='http://54.89.50.153:7070/admin_user_page';">Cancel</button>
+                </form>
+            </div>
+          </div>
+        </div>
+       
+      </div>
+    </div>
+    <!-- content-wrapper ends -->
+    <footer class="footer">
+      <div class="d-sm-flex justify-content-center justify-content-sm-between">
+        <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright © Next door Rental 2022</span>
+      </div>
+    </footer>
+    <!-- partial -->
+  </div>
+  <!-- main-panel ends -->
+  </div>
+  <!-- page-body-wrapper ends -->
+  </div>
+  <!-- container-scroller -->
+  
+  <!-- Modal -->
+  <div class="modal fade" id="logout" role="dialog">
+  <div class="modal-dialog modal-sm">
+  
+  <!-- Modal content-->
+  <div class="modal-content">
+  <div class="modal-header">
+    <h4 class="modal-title">Logout</h4>
+    <button type="button" class="close" data-dismiss="modal">&times;</button>
+    
+  </div>
+  <div class="modal-body">
+    <p>Are you sure you want to logout?</p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-light" data-dismiss="modal">NO</button>
+    <a href="login.html" class="btn btn-primary mr-2"> YES</a>
+  </div>
+  </div>
+  
+  </div>
+  </div>
+  
+{% endblock  %}

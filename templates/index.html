@@ -1,0 +1,273 @@
+{% extends 'base.html' %}
+{% block body %}
+<style>
+  .checked
+  {
+  color:#f2a654;
+  }
+  span{
+    margin-right: 10px;
+  }
+  .notchecked
+  {
+    color:#d2d2d2;
+  }
+
+</style>
+ <!-- partial -->
+ <div class="main-panel">
+  <div class="content-wrapper pb-0">
+    <div class="page-header flex-wrap">
+      <div class="header-left">
+        
+      </div>
+      <div class=" d-flex flex-wrap mt-2 mt-sm-0">
+        <div class="d-flex align-items-center">
+          <a>
+            <p class="m-0 pr-3">Dashboard</p>
+          </a>
+        </div>
+      </div>
+    </div>
+    <!-- first row starts here -->
+    <div class="row">
+      <div class="col-xl-12 stretch-card grid-margin">
+        <div class="card">
+          <div class="card-body">
+            {% comment %} <a href="{% url 'exelgraph' %}" class="btn btn-primary btn-sm" role="button" aria-pressed="true" align="right">Export</a> {% endcomment %}
+            <div class="d-flex justify-content-between flex-wrap">
+              <div>
+                <div class="card-title mb-0">Sales Revenue</div>
+                <h3 class="font-weight-bold mb-0">${{sales_revenue}}</h3>
+              </div>
+              <div>
+                <div class="d-flex flex-wrap pt-2 justify-content-between sales-header-right">
+                  <div class="d-flex mr-5">
+                    <button type="button" class="btn btn-social-icon btn-outline-sales">
+                      <i class="mdi mdi-inbox-arrow-down"></i>
+                    </button>
+                    <div class="pl-2">
+                      <h4 class="mb-0 font-weight-semibold head-count"> ${{total_sales}}</h4>
+                      <span class="font-10 font-weight-semibold text-muted">TOTAL SALES</span>
+                    </div>
+                  </div>
+                  <div class="d-flex mr-3 mt-2 mt-sm-0">
+                    <button type="button" class="btn btn-social-icon btn-outline-sales profit">
+                      <i class="mdi mdi-cash text-info"></i>
+                    </button>
+                    <div class="pl-2">
+                      <h4 class="mb-0 font-weight-semibold head-count"> ${{total_profit}} </h4>
+                      <span class="font-10 font-weight-semibold text-muted">TOTAL PROFIT</span>
+                      
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            {% comment %} <div class="flot-chart-wrapper">
+              <div id="flotChart" class="flot-chart">
+                <canvas class="flot-base"></canvas>
+              </div>
+            </div>  {% endcomment %}
+
+            {% comment %} <div id="xy" align="right">
+              <input type="text" id="year-filter2" placeholder="Filter by year" />
+              <button type="button" id="buttonfilter" class="btn btn-primary btn-sm">Filter</button>
+            </div> {% endcomment %}
+            <canvas id="myChart" width="977px" height="219px"></canvas>  
+          
+          </div>
+        </div>
+      </div>
+     
+    </div>
+    <!-- chart row starts here -->
+   
+    <!-- image card row starts here -->
+   
+    <div class="row">
+      <div class="col-xl-12 stretch-card grid-margin">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title mb-0">Customer review</h4>
+          </div>
+          <div class="card-body p-0">
+            <div class="table-responsive">
+              <table class="table custom-table text-dark">
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Customer Rating</th>
+                    <th>Review</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for d in review_data %}
+                  <tr>
+                    <td>
+                      <img src="{{d.imgg}}" class="mr-2" alt="image" /> {{d.first_name}} {{d.last_name}}</td>
+                    <td>
+                      <div class="d-flex">
+                        {% comment %} <span class="pr-2 d-flex align-items-center">80%</span> {% endcomment %}
+                        {% if d.rating == 1 %}
+                          <span class="fa fa-star checked"></span>
+                          <span class="fa fa-star notchecked"></span>
+                          <span class="fa fa-star notchecked"></span>
+                          <span class="fa fa-star notchecked"></span>
+                          <span class="fa fa-star notchecked"></span>
+                        {% elif d.rating == 2 %}
+                          <span class="fa fa-star checked"></span>
+                          <span class="fa fa-star checked"></span>
+                          <span class="fa fa-star notchecked"></span>
+                          <span class="fa fa-star notchecked"></span>
+                          <span class="fa fa-star notchecked"></span>
+                        {% elif d.rating == 3 %}
+                          <span class="fa fa-star checked"></span>
+                          <span class="fa fa-star checked"></span>
+                          <span class="fa fa-star checked"></span>
+                          <span class="fa fa-star notchecked"></span>
+                          <span class="fa fa-star notchecked"></span>
+                        {% elif d.rating == 4 %}
+                          <span class="fa fa-star checked"></span>
+                          <span class="fa fa-star checked"></span>
+                          <span class="fa fa-star checked"></span>
+                          <span class="fa fa-star checked"></span>
+                          <span class="fa fa-star notchecked"></span>
+                        {% elif d.rating == 5 %}
+                          <span class="fa fa-star checked"></span>
+                          <span class="fa fa-star checked"></span>
+                          <span class="fa fa-star checked"></span>
+                          <span class="fa fa-star checked"></span>
+                          <span class="fa fa-star checked"></span>
+                        {% else %}
+                          <span class="fa fa-star notchecked"></span>
+                          <span class="fa fa-star notchecked"></span>
+                          <span class="fa fa-star notchecked"></span>
+                          <span class="fa fa-star notchecked"></span>
+                          <span class="fa fa-star notchecked"></span>
+                        {% endif%}
+                      </div>
+                    </td>
+                    <td>{{d.review}}</td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- doughnut chart row starts -->
+    
+  </div>
+  <!-- content-wrapper ends -->
+  <!-- partial:partials/_footer.html -->
+  <footer class="footer">
+    <div class="d-sm-flex justify-content-center justify-content-sm-between">
+      <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright © Next door Rental 2022</span>
+    </div>
+  </footer>
+  <!-- partial -->
+</div>
+<!-- main-panel ends -->
+</div>
+<!-- page-body-wrapper ends -->
+</div>
+<!-- container-scroller -->
+
+<!-- Modal -->
+<div class="modal fade" id="logout" role="dialog">
+<div class="modal-dialog modal-sm">
+
+<!-- Modal content-->
+<div class="modal-content">
+<div class="modal-header">
+  <h4 class="modal-title">Logout</h4>
+  <button type="button" class="close" data-dismiss="modal">&times;</button>
+  
+</div>
+<div class="modal-body">
+  <p>Are you sure you want to logout?</p>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-light" data-dismiss="modal">NO</button>
+  <a href="admin_logout" class="btn btn-primary mr-2"> YES</a>
+</div>
+</div>
+
+</div>
+</div>
+ <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
+<script>
+  const ctx = document.getElementById('myChart').getContext('2d');
+  const myChart = new Chart(ctx, {
+      type: 'line',
+      data: {     
+        labels: [{% for mth in analytics %} '{{mth.month|slice:'3'}} {{mth.year|slice:'2:'}}', {%endfor%}],
+          <!---labels:['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],-->
+        datasets: [{
+            label: 'sales',
+            data: [{% for sls in analytics %} {{sls.sales}}, {%endfor%}],
+            backgroundColor: 'rgba(94, 110, 237, 0.03)',
+            borderColor: '#5e6eed',
+            borderWidth: 2,
+            fill:true,
+            show: true,
+        },
+          {
+            label: 'profit',
+            data: [{% for prf in analytics %} {{prf.profit}}, {%endfor%}],
+            backgroundColor: 'rgba(230, 246, 249, 0.15)',
+            borderColor: '#00cff4',
+            borderWidth: 2,
+            fill: true,
+            show: true,
+        },  
+        ],
+      },
+      options: {
+        scales: {
+          xAxes: [{
+            show:true
+          }],
+          yAxes: [{
+            ticks: {
+              show: true,
+              min: 0,
+              max: 100,
+              ticks: true,
+            }
+          }]
+        }
+      },
+      
+  });
+</script> 
+{% block js%}
+<script>
+  $('#buttonfilter').on('click',function(){
+    var filterval = $('#year-filter2').val()
+    console.log("year_selected",filterval)
+
+    $.ajax({
+      url : window.location.href = "http://127.0.0.1:8000/admin_dashboard/"+`${filterval}`,
+      type : 'post',
+      data : {
+        'year-data':filterval,
+        csrfmiddlewaretoken: '{{ csrf_token }}'
+      },
+      success : function(data){
+        console.log(data) 
+      },
+      error: function(){
+        alert('Year selected is not present.')
+        window.location.href = "http://127.0.0.1:8000/admin_dashboard"
+      }
+    })
+  });
+</script>  
+
+{% endblock %}
+{% endblock  %}

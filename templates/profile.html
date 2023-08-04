@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% block body %}
+<!-- partial -->
+<div class="main-panel">
+  <div class="content-wrapper">
+    <div class="page-header">
+      <h3 class="page-title">Profile</h3>
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="/admin_dashboard">Dashboard</a></li>
+          <li class="breadcrumb-item active" aria-current="page">Profile</li>
+        </ol>
+      </nav>
+    </div>
+    <div class="row">
+      <div class="col-sm-6 col-xl-6 offset-xl-3 stretch-card grid-margin">
+        <div class="card ">
+          <div class="card-body">
+<!--                      <form action="#" method="post" enctype="multipart/form-data">-->
+<!--                        {% csrf_token %}-->
+<!--                        <div class="profile-img d-flex flex-column align-items-center justify-content-center mr-md-4">-->
+<!--                            <div class="profile-pic">-->
+<!--                                <label class="profile-label" for="profile_img">-->
+<!--                                    <span><i class="fa fa-camera" aria-hidden="true"> </i></span>-->
+<!--                                </label>-->
+<!--                                <input id="profile_img" type="file" name="upload" accept="image/*">-->
+<!--                                <img src='{{ image_src }}' id="update_profile_img" />-->
+<!--                            </div>-->
+<!--                            <button class="btn btn-primary px-4 py-2 mt-4" type="submit" >Upload</button>-->
+<!--                        </div>-->
+<!--                    </form>-->
+          <form action="upload_admin_profile" method="post" enctype="multipart/form-data">
+              {% csrf_token %}
+              <div class="nav-profile-image edit-profile text-center mb-4">
+                <img src="{{ profile_image }}" alt="Upload profile" width="160"  style="height: 150px;">
+                <span>
+                  <input id="profile_img" type="file" name="upload" accept="image/*">
+                  <i class="mdi mdi-camera"></i>
+                </span>
+                  <button class="btn btn-primary px-4 py-2 mt-4" type="submit" >Upload</button>
+<!--                        change to offline or busy as needed-->
+              </div>
+              </form>
+              <div class="nav-profile-text text-center">
+<!--                        <h4 class="font-weight-semibold mb-1 mt-2 text-center">Antonio Olson</h4>-->
+<!--                        <h1>ADMIN</h1> -->
+                <h2 style="color: #c4aa7e" > {{ admin_email }} </h2>
+              </div>
+            
+          </div>
+        </div>
+      </div>
+     
+     
+    </div>
+  </div>
+  <!-- content-wrapper ends -->
+  <footer class="footer">
+    <div class="d-sm-flex justify-content-center justify-content-sm-between">
+      <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright © Next door Rental 2022</span>
+    </div>
+  </footer>
+  <!-- partial -->
+</div>
+<!-- main-panel ends -->
+{% endblock%}

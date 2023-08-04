@@ -1,0 +1,109 @@
+<script>
+        $(document).ready(function () {
+            $('input[type="checkbox"]').click(function () {
+                var inputValue = $(this).attr("value");
+                $("." + inputValue).toggle();
+            });
+            // On Change Append Input Box
+            $('#title').on('change', function () {
+                var value = $(this).val();
+                console.log(value);
+                if (value == 'Others') {
+                    $('#other-input').removeClass('d-none');
+                } else {
+                    $('#other-input').addClass('d-none');
+                }
+            });
+
+
+            // Report details
+            $('.report_id').on('click', function () {
+                var report_incident_id = $(this).attr('id');
+                console.log(report_incident_id);
+                $.ajax({
+                    url: `/report_incident_details/${report_incident_id}`,
+                    type: 'get',
+                    success: function (data) {
+                        console.log(data)
+                        $('#modal_body').append(
+                            `
+                            <div class="preview-item-content d-flex align-items-start flex-column justify-content-center">
+                                <h4 class="preview-subject mb-3">${data.about}</h4>
+                                <p class="preview-subject font-weight-normal mb-3">${data.description}</p>
+                                <!-- <p class="text-gray ellipsis mb-0"> ${data.created} </p> -->
+                            </div>
+                            <input type="hidden" value="${data.id}" name="report_id" id="report_id">
+                                <input type="hidden" value="${data.user}" name="user" id="user">
+                                    <input type="hidden" value="${data.email}" name="email" id="email">
+                                        <input type="hidden" value="${data.about}" name="about" id="about">
+                                            <input type="hidden" value="${data.description}" name="description" id="description">
+                                                <input type="hidden" value="${data.transaction_id}" name="transaction_id" id="transaction_id">
+                                                    <input type="text" name="reply" id="reply" class="form-control" placeholder="Reply" style="width: 278px; float: right;">
+                                    `
+                        )
+                    }
+                });
+            });
+
+            $('.replySubmit').on('click', function () {
+                console.log("Method Colled");
+                $('.modal').modal('hide');
+                var about = $('input[name="about"]').val();
+                var user = $('input[name="user"]').val();
+                var transaction_id = $('input[name="transaction_id"]').val();
+                var description = $('input[name="description"]').val();
+                var reply = $('input[name="reply"]').val();
+                var report_id = $('input[name="report_id"]').val();
+                var email = $('input[name="email"]').val();
+                //console.log(about,reply,email,report_id);
+                $.ajax({
+                    url: "/send_reply",
+                    type: 'POST',
+                    data: {
+                        about,
+                        user,
+                        transaction_id,
+                        description,
+                        reply,
+                        report_id,
+                        email,
+                        csrfmiddlewaretoken: '{{ csrf_token }}'
+                    },
+                    success: function (data) {
+                        console.log("Submited Successfully");
+                        if (data.status == 200) {
+                            alert("Message sent Successfully!")
+                        }
+                    }
+                })
+            });
+            $(".modal").on("hidden.bs.modal", function () {
+                $("#modal_body").html("");
+            });
+
+            
+        });
+        // Export ExcelSheet
+  $("#button").click(function(){
+    console.log("Working")
+    $("#example").table2excel({
+      // exclude CSS class
+      exclude: ".noExl",
+      name: "Worksheet Name",
+      filename: "SomeFile", //do not include extension
+      fileext: ".xls" // file extension
+    }); 
+  });
+  
+  $(function() {
+    $( "#valid_from" ).datepicker({
+      minDate: 0,
+      });
+  });
+
+  $(function() {
+    $( "#valid_to" ).datepicker({
+      minDate: 0,
+      });
+  });
+</script>

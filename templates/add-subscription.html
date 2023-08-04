@@ -1,0 +1,125 @@
+{% extends 'base.html' %}
+{% block body %}
+<!-- partial -->
+<div class="main-panel">
+  <div class="content-wrapper">
+    <div class="page-header">
+      <h3 class="page-title">Add Subscription</h3>
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="/login_admin_user">Dashboard</a></li>
+          <li class="breadcrumb-item active" aria-current="page">Add Subscription</li>
+        </ol>
+      </nav>
+    </div>
+    <div class="row">
+      <div class="col-sm-6 col-xl-6 offset-xl-3 grid-margin">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title">Add Subscription</h4>
+            <form action="admin_add_subscription_page_data" method="post" class="form-sample">
+              {% csrf_token %}
+              <div class="form-group">
+                  <label class="col-form-label">Title</label>
+                  <input name="title" type="text" placeholder="Title" class="form-control" required/>
+              </div>
+              <div class="form-group">
+                <label class="col-form-label">Plans Type</label>
+                <select name="plans_type" class="form-select form-control" aria-label="Default select example" required>
+                  <option value="">Select Plans Type</option>
+                  <option value="Silver">Silver</option>
+                  <option value="Gold">Gold </option>
+                    <option value="Platinum">Platinum</option>
+                  </select>
+            </div>
+              
+
+              <div class="form-group">
+                  <label class="col-form-label">Duration</label>
+                  <select name="duration" class="form-select form-control" aria-label="Default select example" required>
+                    <option value="">Select Duration</option>
+                    <option value="7">Weekly</option>
+                    <option value="30">Monthly </option>
+                      <option value="1">Daily</option>
+                      <option value="365">Yearly</option>
+                    </select>
+              </div>
+
+              <div class="form-group">
+                  <label class="col-form-label">Amount</label>
+                  <div class="input-group mb-3">
+                    <input name="amount" placeholder="Amount" type="number" class="form-control allowNumericWithoutDecimal allCha" aria-label="Recipient's username" aria-describedby="basic-addon2" required>
+                    <div class="input-group-append">
+                      <span class="input-group-text" id="basic-addon2">In dollars</span>
+                    </div>
+                </div>
+              </div>
+             
+              <div class="form-group">
+                <label class="col-form-label">Description </label>
+                <textarea name="description" class="form-control" rows="5" required></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary mr-2"> Save </button>
+            <a href="/admin_subscription_page" type="button" class="btn btn-light ">Cancel</a>
+<!--                      <button type="button"  class="btn btn-success btn-sm show_profile_user">Cancel</button>-->
+              </form>
+          </div>
+        </div>
+      </div>
+     
+    </div>
+  </div>
+  <!-- content-wrapper ends -->
+  <footer class="footer">
+    <div class="d-sm-flex justify-content-center justify-content-sm-between">
+      <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright © Next door Rental 2022</span>
+    </div>
+  </footer>
+  <!-- partial -->
+</div>
+<!-- main-panel ends -->
+</div>
+<!-- page-body-wrapper ends -->
+</div>
+<!-- container-scroller -->
+
+<!-- Modal -->
+<div class="modal fade" id="logout" role="dialog">
+<div class="modal-dialog modal-sm">
+
+<!-- Modal content-->
+<div class="modal-content">
+<div class="modal-header">
+  <h4 class="modal-title">Logout</h4>
+  <button type="button" class="close" data-dismiss="modal">&times;</button>
+  
+</div>
+<div class="modal-body">
+  <p>Are you sure you want to logout?</p>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-light" data-dismiss="modal">NO</button>
+  <a href="login.html" class="btn btn-primary mr-2"> YES</a>
+</div>
+</div>
+
+</div>
+</div>
+
+
+<script>
+    $(".allowNumericWithoutDecimal").on("keypress keyup blur", function(event) {
+      $(this).val($(this).val().replace(^[A-Za-z0-9_-]*$, ""));
+      if ((event.which < 48 || event.which > 57)) {
+      event.preventDefault();
+      }
+    });
+
+
+    $('#start_date').datetimepicker({
+      format: 'yyyy-mm-dd'
+  });
+  </script>
+{% endblock  %}
+  

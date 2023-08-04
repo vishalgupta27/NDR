@@ -1,0 +1,102 @@
+{% extends 'base.html' %}
+     {% block body %}
+     <!-- partial -->
+     <div class="main-panel">
+      <div class="content-wrapper">
+        <div class="page-header">
+          <h3 class="page-title">Add Category</h3>
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="/login_admin_user">Dashboard</a></li>
+              <li class="breadcrumb-item active" aria-current="page">Add Category</li>
+            </ol>
+          </nav>
+        </div>
+        <div class="row">
+          <div class="col-sm-6 col-xl-6 offset-xl-3 grid-margin">
+            <div class="card">
+
+              {% for message in messages %}
+              <div class="alert {{ message.tags }} alert-dismissible fade show" role="alert">
+                <strong>Message!</strong> {{message}}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              {% endfor %}
+
+              <div class="card-body">
+                <h4 class="card-title">Add Category</h4>
+                <form action="" method="post" class="form-sample">
+                  {% csrf_token %}
+                  <div class="form-group">
+                      <label class="col-form-label">Name of Category</label>
+                      <input name="category" type="text" class="form-control" required/>
+                  </div>
+                 {% comment %} <div class="form-group">
+                    <label class="col-form-label">Brands Name</label>
+                    <select class="form-control multi-select" multiple="multiple" name="brands" multiple="multiple">
+                      {% for brand in brands %}
+                        <option value="{{brand.id}}">{{brand.brand_name}}</option>
+                      {% endfor %}
+                    </select>
+                </div> {% endcomment %}
+                <button type="submit" class="btn btn-primary mr-2">Save </button>
+                <a href="/categories" type="button" class="btn btn-light">Cancel</a>
+                  </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- content-wrapper ends -->
+      <footer class="footer">
+        <div class="d-sm-flex justify-content-center justify-content-sm-between">
+          <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright © Next door Rental 2022</span>
+        </div>
+      </footer>
+      <!-- partial -->
+    </div>
+    <!-- main-panel ends -->
+  </div>
+  <!-- page-body-wrapper ends -->
+</div>
+<!-- container-scroller -->
+
+ <!-- Modal -->
+<div class="modal fade" id="logout" role="dialog">
+<div class="modal-dialog modal-sm">
+
+  <!-- Modal content-->
+  <div class="modal-content">
+    <div class="modal-header">
+      <h4 class="modal-title">Logout</h4>
+      <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+    </div>
+    <div class="modal-body">
+      <p>Are you sure you want to logout?</p>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-light" data-dismiss="modal">NO</button>
+      <a href="login.html" class="btn btn-primary mr-2"> YES</a>
+    </div>
+  </div>
+
+</div>
+</div>
+     
+ {% block js %}
+ <script>
+  $(document).ready(function() {
+    $('.multi-select').select2({
+      
+    });
+});
+</script>
+ 
+ {% endblock  %}   
+     
+{% endblock  %}   
+    
+ 

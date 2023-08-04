@@ -1,0 +1,280 @@
+{% extends 'base.html' %}
+{% block body %}
+<style>
+  .but {
+    background-color:  #a0a0a0;
+}
+
+.current {
+    background-color: #a0a0a0;
+}
+</style>
+<!-- partial -->
+<div class="main-panel">
+  <div class="content-wrapper">
+    <div class="page-header">
+      <h3 class="page-title">User</h3>
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="/login_admin_user">Dashboard</a></li>
+          <li class="breadcrumb-item active" aria-current="page"> User</li>
+        </ol>
+      </nav>
+    </div>
+    <div class="row">
+      <div class="col-lg-12 grid-margin stretch-card">
+        <div class="card">
+          {% for message in messages %}
+            <div class="alert {{ message.tags }} alert-dismissible" role="alert">
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+              {{ message }}
+            </div>
+          {% endfor %}
+          <div class="card-body">
+            <div class="d-flex justify-content-between">
+              <h4 class="card-title">User</h4>
+              <button type="button" class="btn btn-success" id="button">Export</button>
+            </div>
+            <div>
+              <table id="example" class="table table-bordered display nowrap example" style="width:100%; height: 100%;">
+                <thead>
+                  <tr>
+                    <th><strong>Photo ID</strong></th>
+                    <th><strong>User name</strong></th>
+                    <!--<strong>                            <th>Account No.</th>-->
+                    <th><strong>Account Type</strong></th>
+                    <th><strong>Verification Id</strong></th>
+                    <th><strong>Email</strong></th>
+                    <th><strong>Contact</strong></th>
+                    <th><strong>Country</strong></th>
+                    <th><strong>DOB</strong></th>
+                    <th>Status</th>
+                    <th><strong>Action</strong></th>
+                    <th><strong>Inactive/Active</strong></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for data in use_list %}
+                  <tr class="text-bold">
+                    <td class="py-1">
+                      {% if data.user_profile_img != "../" %}
+                      <img src="{{ data.user_profile_img }}" alt="image" />
+                      {% else %}
+                      <h4>No Image!</h4>
+
+                      {% endif %}
+                      <!--                               <img src="../user/PhotoID/10.jpg" alt="image" />-->
+                      <!--                               <img src="../user/10.jpg" alt="image" />-->
+                    </td>
+                    <td>{{ data.name }}</td>
+                    <!--                            <td>DB03</td>-->
+                    <td>{{ data.account_type }}</td>
+                    <td>{{ data.photo_id }}</td>
+                    <td>{{ data.email_id }}</td>
+                    <td class="contact_val">{{ data.contact }}</td>
+                    <td>{{ data.country }}</td>
+                    <td>{{ data.DOB }}</td>
+                    {% if data.is_verified == True %}
+                      <td><span class="badge badge-pill badge-info">Verified</span></td>
+                    {% else %}
+                      <td><span class="badge badge-pill badge-danger">Not Verified</span></td>
+                    {% endif %}
+                    <!--<input type="hidden" name="get_id" class="exp_id">-->
+                    <td>
+                      <a href="{% url 'ViewUser' data.user_id %}" class="btn btn-success btn-sm show_profile_user">
+                        <i class="mdi mdi-eye"></i>
+                        <input type="hidden" name="get_id" class="user_id_to_edit" value="{{data.user_id}}">
+                      </a>
+                    </td>
+                    <td>
+                      {% if data.active_user %}
+                      <label class="switch">
+                        <input class="active_user" name="is_active" value="1" type="checkbox" checked>
+                        <span class="slider round"></span>
+                      </label>
+                      {% else %}
+                      <label class="switch">
+                        <input class="active_user" name="is_active" value="0" type="checkbox">
+                        <span class="slider round"></span>
+                      </label>
+                      {% endif %}
+                    </td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+  <!-- content-wrapper ends -->
+  <!-- partial:../../partials/_footer.html -->
+  <footer class="footer">
+    <div class="d-sm-flex justify-content-center justify-content-sm-between">
+      <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright © Next door Rental
+        2022</span>
+    </div>
+  </footer>
+  <!-- partial -->
+</div>
+<!-- main-panel ends -->
+</div>
+<!-- page-body-wrapper ends -->
+</div>
+<!-- container-scroller -->
+
+<!-- Modal -->
+<div class="modal fade" id="delete" role="dialog">
+  <div class="modal-dialog modal-sm">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Delete User</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+      </div>
+      <div class="modal-body">
+        <p>Are you sure you want to Delete this user?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-light" data-dismiss="modal">NO</button>
+        <button type="button" class="btn btn-primary mr-2" data-dismiss="modal">YES</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="logout" role="dialog">
+  <div class="modal-dialog modal-sm">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Logout</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+      </div>
+      <div class="modal-body">
+        <p>Are you sure you want to logout?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-light" data-dismiss="modal">NO</button>
+        <a href="login.html" class="btn btn-primary mr-2"> YES</a>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+{% block js %}
+
+<script>
+
+  $(document).ready(function () {
+    $('#example').DataTable({
+        scrollY: true,
+        scrollX: true,
+        dom: 'Bfrtip',
+        buttons: [
+        'excelHtml5',
+        ],   
+    });
+    
+  });
+  
+  
+    $('.show_profile_user').on("click", function() {
+    user_account_id = $(this).closest("tr").find(".user_id_to_edit").val();
+    console.log(user_account_id);
+    var a = "http://127.0.0.1:8000/show_user_profile/";
+              <!--var a = "http://18.216.142.130:7075/show_user_profile/";-->
+    var c = a + user_account_id;
+    console.log(c);
+    window.location.href = c;
+    });
+  
+    
+    $('.active_user').on("click", function() {
+      <!--		     var contact_val = $(this).parent().parent().parent().find(".user_id_to_edit").val();-->
+      var user_account_id = $(this).closest("tr").find(".user_id_to_edit").val();
+      console.log(user_account_id);
+        let isChecked = $(this).is(':checked');
+  
+        if (isChecked) {
+    
+          console.log("true")
+          var a = "http://54.89.50.153:7070/edit_user_to_active/";
+          <!--  var a = "http://18.216.142.130:7075/edit_user_to_active/";-->
+          var c = a + user_account_id;
+          console.log(c);
+          $.ajax({
+          url : c,
+            <!--url: 'http://54.89.50.153:7070/edit_user_to_active/${user_account_id}',-->
+            type : 'POST',
+            data : {
+              csrfmiddlewaretoken: '{{ csrf_token }}'
+            },
+            success : function(data){
+              alert("User Status Updated Successfully!")
+              
+            }
+          })
+  
+        } else {
+          var a = "http://54.89.50.153:7070/edit_user_to_inactive/";
+          <!--   var a = "http://18.216.142.130:7075/edit_user_to_inactive/";-->
+          var c = a + user_account_id;
+          console.log(c);
+          $.ajax({
+            url : c,
+            <!-- url : "http://54.89.50.153:7070/edit_user_to_inactive/${user_account_id}",-->
+            type : 'POST',
+            data : {
+              csrfmiddlewaretoken: '{{ csrf_token }}'
+            },
+            success : function(data){
+              alert("User Status Updated Successfully!")
+              
+            },
+            error : function(res){
+              console.log('error', res)
+            }
+          })
+          console.log("false")
+        }
+    
+      });
+      
+      // Export ExcelSheet
+    $("#button").click(function(){
+      console.log("Working")
+      $("#example").table2excel({
+        // exclude CSS class
+        exclude: ".noExl",
+        name: "Worksheet Name",
+        filename: "SomeFile", //do not include extension
+        fileext: ".xls" // file extension
+      }); 
+    });
+
+    
+      $('.paginate_button').each(function() {
+          $(this).on('click', function() {
+              $('.paginate_button.current').removeClass('current');
+              $(this).addClass('current');
+              return false;
+          });
+      });
+
+    </script>
+  {% endblock %}
+{% endblock %}

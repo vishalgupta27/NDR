@@ -1,0 +1,198 @@
+{% extends 'base.html' %}
+{% block body %}
+<!-- partial -->
+<div class="main-panel">
+  <div class="content-wrapper">
+    <div class="page-header">
+      <h3 class="page-title">Product Details</h3>
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="login_admin_user">Dashboard</a></li>
+          <li class="breadcrumb-item active" aria-current="page">Product Details</li>
+        </ol>
+      </nav>
+    </div>
+    <div class="row">
+      <div class="col-sm-6 col-xl-6 offset-xl-3 grid-margin">
+        <div class="card shadow">
+          <div class="card-body">
+            <h4 class="card-title">Product Details</h4>
+            <form action="" method="post" class="form-sample">
+              {% csrf_token %}
+              <div class="row">
+                <div class="col-12">
+                  <div class="form-group">
+                    <label class="col-form-label">Product ID</label>
+                    <input name="Name_First" type="text" class="form-control" value="{{product.Products_id}}" readonly required />
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-6">
+                  <div class="form-group">
+                    <label class="col-form-label">Lender Name</label>
+                    <input name="Name_First" type="text" class="form-control" value="{{product.QrCode_Account.Name_First}}" required />
+                  </div>
+                </div>
+                <div class="col-6">
+                  <div class="form-group">
+                    <label class="col-form-label">Product Name</label>
+                    <input name="Name_Last" type="text" class="form-control" value="{{product.ProductName}}" required />
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-6">
+                  <div class="form-group">
+                    <label class="col-form-label">Make</label>
+                    <input name="Name_First" type="text" class="form-control" value="{{product.make}}" required />
+                  </div>
+                </div>
+                <div class="col-6">
+                  <div class="form-group">
+                    <label class="col-form-label">Model</label>
+                    <input name="Name_Last" type="text" class="form-control" value="{{product.model_number}}" required />
+                  </div>
+                </div>
+              </div>
+           
+              <div class="row">
+                <!-- <div class="col-6">
+                  <div class="form-group">
+                    <label class="col-form-label">Account Type</label>
+                    <input type="text" name="email" class="form-control" readonly value="{{product.account_type}}" required />
+                  </div>
+                </div> -->
+                <div class="col">
+                  <div class="form-group">
+                    <label class="col-form-label">Product category</label>
+                    <input type="text" name="phone_number" class="form-control" readonly value="{{product.Category.category}}"
+                      required />
+                  </div>
+                </div>
+              </div>
+              
+              
+            
+              <!-- <div class="form-group">
+                <label class="col-form-label mt-4">Photo ID</label>
+                <img src="{{ product.Product_Image_2.url }}" alt="Upload profile" class="photo_id image_preview">
+              </div> -->
+              <!-- <div class="form-group">
+                    <label class="col-form-label">Credit Card Type</label>
+                    <input name="CreditCard_Type" type="text" class="form-control" value="{{user.CreditCard_Type}}" required/>
+                </div> -->
+            
+              <div class="form-group">
+                {% if product.is_verified == True %}
+                <label class="form-check-label" for="is_verified">Verified</label>
+                <label class="switch">
+                  <input class="active_user" name="is_verified" value="true" type="checkbox" product_status={{product.Products_id }} id="is_verified" checked disabled>
+                  <span class="slider round"></span>
+                </label>
+                {% else %}
+                <label class="form-check-label" for="is_verified">Verify</label>
+                <label class="switch">
+                  <input class="active_user" name="is_verified" value="false" type="checkbox" product_status={{product.Products_id }} id="is_verified">
+                  <span class="slider round"></span>
+                </label>
+                {% endif %}
+              </div>
+              <button type="submit" class="btn btn-primary mr-2"> Update </button>
+              <button type="button" class="btn btn-light "
+                onclick="window.location.href='http://54.89.50.153:7070/admin_product_page';">Cancel</button>
+            </form>
+           
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- content-wrapper ends -->
+  <footer class="footer">
+    <div class="d-sm-flex justify-content-center justify-content-sm-between">
+      <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright © Next door Rental
+        2022</span>
+    </div>
+  </footer>
+  <!-- partial -->
+</div>
+<!-- main-panel ends -->
+</div>
+<!-- page-body-wrapper ends -->
+</div>
+<!-- container-scroller -->
+<div class="modal fade bd-example-modal-lg preview_large_image" tabindex="-1" role="dialog" id="largeImagePreview" aria-labelledby="largeImagePreview" aria-hidden="true">
+  <div class="modal-dialog">
+      <div class="modal-content">
+          <div class="modal-header d-flex justify-content-end bg-dark">
+            
+              <h4 class="modal-title text-light">Photo ID</h4>
+              <button type="button" class="close" data-dismiss="modal">×</button>
+           
+          </div>
+          <div class="modal-body d-flex justify-content-center align-items-center">
+              <img class="modal_preview_img mb-3" src="assets/img/product/product11.jpg" style="height: 340px; width: 361px;">
+          </div>
+      </div>
+  </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="logout" role="dialog">
+  <div class="modal-dialog modal-sm">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Logout</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+      </div>
+      <div class="modal-body">
+        <p>Are you sure you want to logout?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-light" data-dismiss="modal">NO</button>
+        <a href="login.html" class="btn btn-primary mr-2"> YES</a>
+      </div>
+    </div>
+
+  </div>
+</div>
+{% block js %}
+<script>
+  $(document).ready(function () {
+    $('#is_verified').on('click', function () {
+      var is_verified = $(this).prop("value");
+      var product_id = $(this).attr('product_status')
+      console.log(is_verified,product_id)
+      $.ajax({
+        url: "{% url 'VerifyProduct' %}",
+        method: 'post',
+        data: {
+          csrfmiddlewaretoken: '{{ csrf_token }}',
+          is_verified: is_verified,
+          product_id: product_id,
+        },
+        success: function (data) {
+          if (data.status == 200) {
+            alert("Successfully Product verified !");
+            window.location.href = 'http://54.89.50.153:7070/admin_product_page';
+          }
+          if (data.status == 403) {
+            alert("Product Unverified");
+            window.location.href = `/view_user/${user_id}`;
+          }
+        }
+      })
+    });
+    $(document).on('click', '.image_preview', function() {
+      $("#largeImagePreview").modal("show");
+      var imageUrl = $(this).attr("src");
+      console.log(imageUrl,"jhjjjjjjjjjjjjjjjjjjjjjjjj")
+      $(".modal_preview_img").attr("src", imageUrl);
+  });
+  });
+</script>
+{% endblock %}
+{% endblock %}

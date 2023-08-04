@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% block body %}
+{% load static %}
+ <!-- partial -->
+ <div class="main-panel">
+  <div class="content-wrapper">
+    
+    <div class="row shadow" style="background-color: #000417;">
+      <div class="col-sm-12 col-xl-12 p-3">
+        <div class="card p-3">
+          
+        <div class="coming-soon ">
+            <img src="{% static 'images/coming-soon-1.webp' %}" style="height: 660px;">
+        </div>
+       
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <!-- content-wrapper ends -->
+  <footer class="footer">
+    <div class="d-sm-flex justify-content-center justify-content-sm-between">
+      <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright © Next door Rental 2022</span>
+    </div>
+  </footer>
+  <!-- partial -->
+</div>
+<!-- main-panel ends -->
+</div>
+<!-- page-body-wrapper ends -->
+</div>
+<!-- container-scroller -->
+
+<!-- Modal -->
+<div class="modal fade" id="logout" role="dialog">
+<div class="modal-dialog modal-sm">
+
+<!-- Modal content-->
+<div class="modal-content">
+<div class="modal-header">
+  <h4 class="modal-title">Logout</h4>
+  <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+</div>
+<div class="modal-body">
+  <p>Are you sure you want to logout?</p>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-light" data-dismiss="modal">NO</button>
+  <a href="login.html" class="btn btn-primary mr-2"> YES</a>
+</div>
+</div>
+
+</div>
+</div>
+{% endblock  %}

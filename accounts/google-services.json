@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "409974553054",
+    "firebase_url": "https://next-door-renal-default-rtdb.firebaseio.com",
+    "project_id": "next-door-renal",
+    "storage_bucket": "next-door-renal.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:409974553054:android:dec7036c4ca72394a2454f",
+        "android_client_info": {
+          "package_name": "com.ndr.nextdoorrental"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "409974553054-39u1drfbje9u19om4jr8fp5qq54sk7n5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ndr.nextdoorrental",
+            "certificate_hash": "7f4966b3e96630574b09fb479081719a8ff3e41b"
+          }
+        },
+        {
+          "client_id": "409974553054-6c8jff2v1shjdm96kh00mlop9c14e04i.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyADRWQykgc3lizvK538Hxti7h3PGrBQsH8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "409974553054-6c8jff2v1shjdm96kh00mlop9c14e04i.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "409974553054-fb2cjhd91cjcpia8dr81mb95kq47k4tg.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "Com.Augurs.NextDoorRental"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

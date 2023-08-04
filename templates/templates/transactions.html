@@ -1,0 +1,131 @@
+{% extends 'base.html' %}
+{% block body %}
+<!-- partial -->
+<div class="main-panel">
+  <div class="content-wrapper">
+    <div class="page-header">
+      <h3 class="page-title">Transactions</h3>
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="/login_admin_user">Dashboard</a></li>
+          <li class="breadcrumb-item active" aria-current="page">Transactions</li>
+        </ol>
+      </nav>
+    </div>
+    <div class="row">
+      <div class="col-12 grid-margin">
+        <div class="card">
+          <div class="card-body">
+            <div class="">
+              <table id="example" class="table table-bordered display nowrap" style="width:100%">
+                <thead>
+                  <tr>
+                    <!-- <th>Serial No.</th> -->
+                    <th>Order ID</th>
+                    <th>Product name</th>
+                    <th>Lender Email</th>
+                    <th>Renter Email</th>
+                    <th>Amount</th>
+                    <th>Payment Date</th>
+                    <th>Payment Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    {% for transaction in transactions %}
+                        <tr>
+                            <!-- <td>{{forloop.counter}}</td> -->
+                            <td>{{transaction.payment_id}}</td>
+                            <td>{{transaction.product}}</td>
+                            <td>{{transaction.lender}}</td>
+                            <td>{{transaction.renter}}</td>
+                            <td>{{transaction.amount}} CAD</td>
+                            <td>{{transaction.date_of_payment|date:''}}</td>
+                            <td><span class="badge badge-success">{{transaction.payment_status}}</span></td>
+                        </tr>
+                 {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- content-wrapper ends -->
+  <footer class="footer">
+    <div class="d-sm-flex justify-content-center justify-content-sm-between">
+      <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright © Next door Rental 2022</span>
+    </div>
+  </footer>
+  <!-- partial -->
+</div>
+<!-- main-panel ends -->
+</div>
+<!-- page-body-wrapper ends -->
+</div>
+<!-- container-scroller -->
+<!-- Modal -->
+<div class="modal fade" id="delete" role="dialog">
+<div class="modal-dialog modal-sm">
+
+<!-- Modal content-->
+<div class="modal-content">
+<div class="modal-header">
+  <h4 class="modal-title">Delete</h4>
+  <button type="button" class="close" data-dismiss="modal">&times;</button>
+  
+</div>
+<div class="modal-body">
+  <p>Are you sure you want to Delete?</p>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-light" data-dismiss="modal">NO</button>
+  <button type="button" class="btn btn-primary mr-2" data-dismiss="modal">YES</button>
+</div>
+</div>
+
+</div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="logout" role="dialog">
+<div class="modal-dialog modal-sm">
+
+<!-- Modal content-->
+<div class="modal-content">
+<div class="modal-header">
+  <h4 class="modal-title">Logout</h4>
+  <button type="button" class="close" data-dismiss="modal">&times;</button>
+  
+</div>
+<div class="modal-body">
+  <p>Are you sure you want to logout?</p>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-light" data-dismiss="modal">NO</button>
+  <a href="admin_logout" class="btn btn-primary mr-2"> YES</a>
+</div>
+</div>
+
+</div>
+</div>
+<script src="../static/js/select2.js"></script>
+
+{% block js %}
+
+<script>
+
+$(document).ready(function () {
+  $('#example').DataTable({
+      scrollY: 200,
+      scrollX: true,
+  });
+});
+
+</script>
+
+{% endblock %}
+
+
+{% endblock  %}
+        
+    

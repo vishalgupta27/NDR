@@ -1,0 +1,105 @@
+{% extends 'base.html' %}
+{% block body %}
+ <!-- partial -->
+ <div class="main-panel">
+  <div class="content-wrapper">
+    <div class="page-header">
+      <h3 class="page-title">Update Rewards</h3>
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="/login_admin_user">Dashboard</a></li>
+          <li class="breadcrumb-item active" aria-current="page">Update Rewards</li>
+        </ol>
+      </nav>
+    </div>
+    <div class="row">
+      <div class="col-sm-6 col-xl-6 offset-xl-3 grid-margin">
+        <div class="card">
+          
+          <div class="card-body">
+            <h4 class="card-title">Update Rewards</h4>
+            <form action="" method="post" class="form-sample">
+              {% csrf_token %}
+              <div class="form-group">
+                  <label class="col-form-label">Title</label>
+                  <input name="title" type="text" class="form-control" value="{{reward.title}}" required/>
+              </div>
+              <div class="form-group">
+                <label class="col-form-label">Coupon Code</label>
+                <input name="code" type="text" class="form-control" value="{{reward.code}}" required/>
+              </div>
+              <div class="form-group">
+                <label class="col-form-label">Amount</label>
+                <input name="amount" type="number" class="form-control" value="{{reward.amount}}" required/>
+              </div>
+              <div class="form-group">
+                <label class="col-form-label">Valid From</label>
+                <input name="valid_from" id="valid_from" class="form-control" value="{{reward.valid_from}}" required/>
+              </div>
+              <div class="form-group">
+                <label class="col-form-label">Valid To</label>
+                <input name="valid_to" id="valid_to" class="form-control" value="{{reward.valid_to}}" required/>
+            </div>
+            <div class="form-group">
+              <label class="col-form-label">Reward Status</label>
+              <select class="form-control" name="reward_status"  aria-label="Default select example">
+                {% if reward.reward_status == "Active" %}
+                <option value="Active">Active</option>
+                <option value="Expire">Expire</option>
+                {% else %}
+                <option value="Expire">Expire</option>
+                <option value="Active">Active</option>
+                {% endif %}
+              </select>
+            </div>
+            {% comment %} <div class="form-group">
+                <label class="col-form-label">Description </label>
+                <textarea name="description" class="form-control" value="{{reward.description}}" rows="5" required></textarea>
+            </div> {% endcomment %}
+
+            <button type="submit" class="btn btn-primary mr-2">Update </button>
+            <a href="/admin_rewards_page" type="button" class="btn btn-light">Cancel</a>
+              </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- content-wrapper ends -->
+  <footer class="footer">
+    <div class="d-sm-flex justify-content-center justify-content-sm-between">
+      <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright © Next door Rental 2022</span>
+    </div>
+  </footer>
+  <!-- partial -->
+</div>
+<!-- main-panel ends -->
+</div>
+<!-- page-body-wrapper ends -->
+</div>
+<!-- container-scroller -->
+
+<!-- Modal -->
+<div class="modal fade" id="logout" role="dialog">
+<div class="modal-dialog modal-sm">
+
+<!-- Modal content-->
+<div class="modal-content">
+<div class="modal-header">
+  <h4 class="modal-title">Logout</h4>
+  <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+</div>
+<div class="modal-body">
+  <p>Are you sure you want to logout?</p>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-light" data-dismiss="modal">NO</button>
+  <a href="login.html" class="btn btn-primary mr-2"> YES</a>
+</div>
+</div>
+
+</div>
+</div>
+
+{% endblock  %}

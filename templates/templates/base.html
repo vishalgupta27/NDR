@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<meta http-equiv="content-type" content="text/html;charset=utf-8" />
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <title>Next door Rental</title>
+  <!-- plugins:css -->
+  <link rel="stylesheet" href="../static/vendors/mdi/css/materialdesignicons.min.css">
+  <link rel="stylesheet" href="../static/vendors/flag-icon-css/css/flag-icon.min.css">
+  <link rel="stylesheet" href="../static/vendors/css/vendor.bundle.base.css">
+
+  <link rel="stylesheet" href="../static/vendors/jquery-bar-rating/css-stars.css" />
+  <link rel="stylesheet" href="../static/vendors/font-awesome/css/font-awesome.min.css" />
+
+  <link rel="stylesheet" href="../static/css/style.css" />
+  <!-- End layout styles -->
+  <link rel="shortcut icon" href="../static/images/favicon.png" />
+</head>
+
+<body>
+  <div class="container-scroller">
+    <!-- partial:partials/_sidebar.html -->
+    <nav class="sidebar sidebar-offcanvas" id="sidebar">
+      <ul class="nav">
+        <li class="nav-item nav-profile border-bottom">
+          <a href="#" class="nav-link flex-column">
+            <div class="nav-profile-image">
+              <img src="{{ profile_image }}" alt="profile" />
+              <!--change to offline or busy as needed-->
+            </div>
+            <div class="nav-profile-text d-flex ml-0 mb-3 flex-column">
+              <span class="font-weight-semibold mb-1 mt-2 text-center">{{ admin_email }}</span>
+            </div>
+          </a>
+        </li>
+        <li class="nav-item pt-3">
+          <a class="nav-link d-block" href="/login_admin_user">
+            <img class="sidebar-brand-logo" src="../static/images/logo.png" alt="" />
+            <img class="sidebar-brand-logomini" src="../static/images/logo-mini.png" alt="" />
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/login_admin_user">
+            <i class="mdi mdi-compass-outline menu-icon"></i>
+            <span class="menu-title">Dashboard</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/admin_user_page">
+            <i class="mdi mdi-account-multiple menu-icon"></i>
+            <span class="menu-title">User</span>
+          </a>
+
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/admin_product_page">
+            <i class="mdi mdi-baby-buggy menu-icon"></i>
+            <span class="menu-title">Product</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/transactions_details">
+            <i class="mdi mdi-flask-empty menu-icon"></i>
+            <span class="menu-title">Transactions</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/transactions_details">
+            <i class="mdi mdi-van-utility menu-icon"></i>
+            <span class="menu-title">Pickup and Return</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/admin_content_page">
+            <i class="mdi mdi-chart-bar menu-icon"></i>
+            <span class="menu-title">Contents</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/admin_subscription_page">
+            <i class="mdi mdi-table-large menu-icon"></i>
+            <span class="menu-title">Subscription</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/admin_rewards_page">
+            <i class="mdi mdi-trophy-award menu-icon"></i>
+            <span class="menu-title">Rewards</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/categories">
+            <i class="mdi mdi-trophy-award menu-icon"></i>
+            <span class="menu-title">Product Category</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/admin_notification">
+            <i class="mdi mdi-bell-outline menu-icon"></i>
+            <span class="menu-title">Notification</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/ndr_taxes_list">
+            <i class="mdi  mdi-coin menu-icon"></i>
+            <span class="menu-title">Our Taxes</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+    <!-- partial -->
+    <div class="container-fluid page-body-wrapper">
+
+      <!-- partial:partials/_navbar.html -->
+      <nav class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+        <div class="navbar-menu-wrapper d-flex align-items-stretch">
+          <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
+            <span class="mdi mdi-chevron-double-left"></span>
+          </button>
+          <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
+            <a class="navbar-brand brand-logo-mini" href="index.html"><img
+                src="https://technext.github.io/plus-admin/assets/images/logo-mini.svg" alt="logo" /></a>
+          </div>
+
+          <ul class="navbar-nav navbar-nav-right">
+            <li class="nav-item dropdown ml-3">
+              <h3> Hi {{admin_username}} </h3>
+            </li>
+            
+                <li class="nav-item dropdown ml-3">
+                  <a class="nav-link" id="notificationDropdown" href="#" data-toggle="dropdown">
+                    <span class="badge badge-dark">
+                      <i class="mdi mdi-bell-outline"></i>
+                      4
+                      </span>
+                  </a>
+                  <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list"
+                    aria-labelledby="notificationDropdown">
+                    <h6 class="px-3 py-3 font-weight-semibold mb-0">Notifications</h6>
+                    <div class="dropdown-divider"></div>
+                    {% if report_incident %}
+                      {% for report in report_incident %}
+                        <a class="dropdown-item preview-item report_id" id="{{report.id}}">
+                          <div class="preview-thumbnail">
+                            <div class="preview-icon bg-success">
+                              <i class="mdi mdi-calendar"></i>
+                            </div>
+                          </div>
+                          <div class="preview-item-content d-flex align-items-start flex-column justify-content-center"
+                            data-toggle="modal" data-target="#user_notification">
+                            <h6 class="preview-subject font-weight-normal mb-0">{{report.about}}</h6>
+                            <p class="text-gray ellipsis mb-0"> {{report.created|timesince }} ago</p>
+                            {% comment %} <input type="hidden" id="report_id" name="report_id" value="{{report.id}}"> {%
+                            endcomment %}
+                            {% comment %} <p class="text-gray ellipsis mb-0"> 45 sec ago </p> {% endcomment %}
+                          </div>
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        
+                      {% endfor %}
+                    {% else %}
+                    {% endif %}
+                    <h6 class="p-3 font-13 mb-0 text-primary text-center">
+                      <a href="{% url 'ListofReportIncident' %}">
+                        View all notifications
+                      </a>
+                    </h6>
+                  </div>
+                </li>
+                
+             
+            <li class="nav-item nav-profile dropdown d-none d-md-block">
+              <a class="nav-link dropdown-toggle" id="profileDropdown" href="#" data-toggle="dropdown"
+                aria-expanded="false">
+                <div class="nav-profile-image">
+                  <img src="{{profile_image}}" alt="profile" width="40">
+                </div>
+              </a>
+              <div class="dropdown-menu  navbar-dropdown" aria-labelledby="profileDropdown">
+                <a class="dropdown-item" href="admin_profile_page">
+                  <i class="mdi mdi-account mr-3"></i> Profile </a>
+                <div class="dropdown-divider"></div>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logout">
+                  <i class="mdi mdi-logout mr-3"></i> Logout</a>
+              </div>
+            </li>
+          </ul>
+          <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button"
+            data-toggle="offcanvas">
+            <span class="mdi mdi-menu"></span>
+          </button>
+        </div>
+      </nav>
+      {% block body %}
+
+      {% endblock %}
+    </div>
+    <!-- page-body-wrapper ends -->
+  </div>
+  <!-- container-scroller -->
+
+
+  <!-- Modal -->
+  <div class="modal fade" id="logout" role="dialog">
+    <div class="modal-dialog modal-sm">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Logout</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+        </div>
+        <div class="modal-body">
+          <p>Are you sure you want to logout?</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-light" data-dismiss="modal">NO</button>
+          <a href="login.html" class="btn btn-primary mr-2"> YES</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="modal fade" id="user_notification" role="dialog">
+    <div class="modal-dialog modal-md">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Anand Yadav</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body" id="modal_body">
+
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-light" data-dismiss="modal">Cancel</button>
+          <a href="javascript:void(0)" class="btn btn-primary mr-2 replySubmit" id="reply_button"> Reply</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- plugins:js -->
+  <script src="../static/vendors/js/vendor.bundle.base.js"></script>
+  <!-- endinject -->
+  <!-- Plugin js for this page -->
+  <script src="../static/vendors/jquery-bar-rating/jquery.barrating.min.js"></script>
+  <script src="../static/vendors/chart.js/Chart.min.js"></script>
+  <script src="../static/vendors/flot/jquery.flot.js"></script>
+  <script src="../static/vendors/flot/jquery.flot.resize.js"></script>
+  <script src="../static/vendors/flot/jquery.flot.categories.js"></script>
+  <script src="../static/vendors/flot/jquery.flot.fillbetween.js"></script>
+  <script src="../static/vendors/flot/jquery.flot.stack.js"></script>
+  <!-- End plugin js for this page -->
+  <!-- inject:js -->
+  <script src="../static/js/off-canvas.js"></script>
+  <script src="../static/js/hoverable-collapse.js"></script>
+  <script src="../static/js/misc.js"></script>
+  <script src="../static/js/settings.js"></script>
+  <script src="../static/js/todolist.js"></script>
+  <script src="../static/css/jquery.dataTables.min.css"></script>
+  <script src="../static/js/jquery.dataTables.min.js"></script>
+  <!-- endinject -->
+  <!-- Custom js for this page -->
+  <script src="../static/js/dashboard.js"></script>
+  <!-- End custom js for this page -->
+  <script>
+    $(document).ready(function () {
+    $(document).on("click", ".delete_category_data", function () {
+      console.log("Working")
+      let { id } = $(this).data();
+      console.log(id)
+      $('.remove_description_id').val(id);
+
+
+    });
+
+    
+    //By Anand
+      $('.active_user').on('click', function(){
+        var user_id = $('input[name="get_id"]').val();
+        var is_active = $('input[name="is_active"]').val();
+        console.log("Work",user_id,is_active)
+        $.ajax({
+          url : `/user_active_inactive/${user_id}`,
+          type : 'POST',
+          data : {
+            is_active,
+            csrfmiddlewaretoken: '{{ csrf_token }}'
+          },
+          success : function(data){
+            alert("User Status Updated Successfully!")
+            
+          }
+        })
+      });
+      
+    });
+  </script>
+  {% include 'custom-js.html' %}
+    {% block js %}
+    
+    
+    {% endblock  %}
+</body>
+
+</html>
